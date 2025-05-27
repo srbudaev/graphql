@@ -1,0 +1,46 @@
+{
+    user {
+      id
+      login
+      attrs
+      auditRatio
+      campus
+    }
+  }
+
+
+  THE ANSWER TO THIS QUERY : 
+  {
+    "data": {
+      "user": [
+        {
+          "id": 2522,
+          "login": "sbudaev",
+          "attrs": {
+            "email": "sergejbudaev150@gmail.com",
+            "gender": "Male",
+            "lastName": "Budaev",
+            "firstName": "Sergei",
+            "tshirtSize": "S (Man)",
+            "dateOfBirth": "1999-01-16T00:00:00.000Z",
+            "nationality": "Russia",
+            "phonenumber": "+358465245341",
+            "emergencyTel": "+358504210597",
+            "photoUploadId": "4_z9bc6ab081551d34678ed0014_f107c21798c039d4f_d20240203_m142644_c003_v0312009_t0019_u01706970404442",
+            "emergencyLastName": "Rostopshin",
+            "needsAccomodation": "yes",
+            "emergencyFirstName": "Dmitrii",
+            "regulationAccepted": true,
+            "general-conditionsAccepted": true
+          },
+          "auditRatio": 1.3143127924498375,
+          "campus": "gritlab"
+        }
+      ]
+    }
+  }
+
+
+
+
+  

@@ -1,0 +1,269 @@
+{
+    transaction(
+      where: {type: {_eq: "xp"}}
+      order_by: {createdAt: desc}
+      limit: 50
+    ) {
+      amount
+      createdAt
+      path
+    }
+  }
+
+  THE ANSWER TO THIS QUERY : 
+  {
+    "data": {
+      "transaction": [
+        {
+          "amount": 50,
+          "createdAt": "2025-05-12T11:56:54.514277+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-insertion-sort-analyzer"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-05-12T10:11:02.529878+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-array-chunk-reversal"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-05-12T10:04:46.508845+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-divisor-finder"
+        },
+        {
+          "amount": 51750,
+          "createdAt": "2025-05-09T15:51:00.613741+00:00",
+          "path": "/gritlab/school-curriculum/typing-in-progress"
+        },
+        {
+          "amount": 103500,
+          "createdAt": "2025-05-09T12:38:50.032738+00:00",
+          "path": "/gritlab/school-curriculum/real-time-forum"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-05-05T11:26:26.817015+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-palindromic-chains"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-05-05T10:08:41.439031+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-perfect-num"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-04-28T10:05:06.4264+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-nested-array-reverser"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-04-28T10:02:57.682748+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-factorial"
+        },
+        {
+          "amount": 50,
+          "createdAt": "2025-04-14T11:22:34.516994+00:00",
+          "path": "/gritlab/school-curriculum/checkpoint-js/js-even-sum"
+        },
+        {
+          "amount": 147000,
+          "createdAt": "2025-04-10T13:26:21.543065+00:00",
+          "path": "/gritlab/school-curriculum/make-your-game"
+        },
+        {
+          "amount": 70000,
+          "createdAt": "2025-03-05T11:43:37.210285+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T14:47:47.218766+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/series"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T14:46:33.797333+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/all"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T14:45:49.104677+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/gougle-search"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T14:44:58.060917+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/is-winner"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T14:44:11.76797+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/get-json"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T14:40:45.486448+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/keep-trying-or-giveup"
+        },
+        {
+          "amount": 76250,
+          "createdAt": "2025-02-27T13:56:41.473381+00:00",
+          "path": "/gritlab/school-curriculum/forum"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T12:17:38.372978+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/interpolation"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T12:11:12.547754+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/throttle"
+        },
+        {
+          "amount": 2450,
+          "createdAt": "2025-02-27T11:56:49.934209+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/async/debounce"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-26T13:02:32.350149+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/pronoun"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-26T12:58:25.320452+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/replica"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-26T11:57:02.876496+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/deep-copy"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-26T11:47:24.047825+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/curry-entries"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-25T12:38:07.613626+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/manipulate-entries"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-25T11:50:58.824027+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/manipulate-keys"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-25T11:26:08.338989+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/manipulate-values"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-25T11:19:16.177466+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/fusion"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-25T11:15:40.842379+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/pick-omit"
+        },
+        {
+          "amount": 2300,
+          "createdAt": "2025-02-25T09:57:51.86235+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/object/invert"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T17:14:33.814649+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/where-do-we-go"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T16:52:15.002657+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/gossip-grid"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T16:40:11.33346+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/pick-and-click"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T16:21:16.740344+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/mouse-trap"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T16:14:16.676988+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/keycodes-symphony"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T14:34:23.779207+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/fifty-shades-of-cold"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T13:32:34.376294+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/pimp-my-style"
+        },
+        {
+          "amount": 2150,
+          "createdAt": "2025-02-21T12:37:19.718217+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/harder-bigger-bolder-stronger"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-21T12:04:02.72367+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/build-brick-and-break"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-21T10:39:14.198461+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/dom/get-them-all"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-19T14:17:50.188699+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/has-city"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-19T14:09:45.654714+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/sweet-curry"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-19T13:52:17.821267+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/quantifiers"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-19T13:13:22.555258+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/reduce"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-19T13:10:15.696825+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/filter"
+        },
+        {
+          "amount": 2000,
+          "createdAt": "2025-02-19T13:05:26.338765+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/mapper"
+        },
+        {
+          "amount": 1850,
+          "createdAt": "2025-02-19T12:35:34.337363+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/for-each"
+        },
+        {
+          "amount": 1850,
+          "createdAt": "2025-02-19T12:07:33.49474+00:00",
+          "path": "/gritlab/school-curriculum/piscine-js/call-me-maybe/long-words"
+        }
+      ]
+    }
+  }
