@@ -5,34 +5,11 @@ import { drawAuditRatioChart, drawAuditorChart } from './charts.js';
 const API_URL = 'https://01.gritlab.ax/api/graphql-engine/v1/graphql';
 const AUTH_URL = 'https://01.gritlab.ax/api/auth/signin';
 
-// GraphQL queries
 const queries = {
   user: `{ user { id login attrs auditRatio campus } }`,
   xp: `{ transaction(where: {type: {_eq: "xp"}} order_by: {createdAt: desc} limit: 50) { amount createdAt path } }`,
   progress: `{ progress { grade createdAt path object { name type } } result { grade createdAt path object { name type } } }`,
-  auditTransactions: `{ transaction(where: {type: {_in: ["up", "down"]}} order_by: {createdAt: desc}) { id type amount createdAt path userId attrs } }`,
-  audits: `{ audit(order_by: {createdAt: desc}) { id grade createdAt resultId auditorId result } }`
-};
-
-// Load local data as fallback
-const loadLocalData = async () => {
-  try {
-    const auditResponse = await fetch('./audit_queries1.txt');
-    const auditText = await auditResponse.text();
-    const auditData = JSON.parse(auditText);
-    
-    const auditorResponse = await fetch('./audit_quieries2.txt');
-    const auditorText = await auditorResponse.text();
-    const auditorData = JSON.parse(auditorText);
-    
-    return {
-      transactions: auditData.data.transaction,
-      audits: auditorData.data.audit
-    };
-  } catch (err) {
-    console.error('Failed to load local data:', err);
-    return { transactions: [], audits: [] };
-  }
+  auditTransactions: `{ transaction(where: {type: {_in: ["up", "down"]}} order_by: {createdAt: desc}) { id type amount createdAt path userId attrs } }`
 };
 
 // GraphQL request
@@ -111,22 +88,22 @@ const showProfile = async token => {
     `;
     
     // Load audit data (try API first, fallback to local)
-    let auditTransactions, audits;
+    let auditTransactions;
     try {
       const auditTxData = await gql(queries.auditTransactions, token);
-      const auditData = await gql(queries.audits, token);
       auditTransactions = auditTxData.transaction;
-      audits = auditData.audit;
     } catch (err) {
       console.log('Using local data...');
-      const localData = await loadLocalData();
-      auditTransactions = localData.transactions;
-      audits = localData.audits;
+      // Load audit transactions from local file
+      const auditResponse = await fetch('./audit_queries3.txt');
+      const auditText = await auditResponse.text();
+      const auditData = JSON.parse(auditText);
+      auditTransactions = auditData.data.transaction;
     }
     
     // Process and draw charts
     const auditRatioData = processAuditRatioData(auditTransactions);
-    const auditorData = processAuditorData(audits);
+    const auditorData = processAuditorData(auditTransactions);
     
     drawAuditRatioChart(auditRatioData, 'auditRatioChart');
     drawAuditorChart(auditorData, 'auditorChart');

@@ -1,0 +1,14 @@
+# Local data files for testing
+audit_queries1.txt
+audit_queries3.txt
+audit_quieries2.txt
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

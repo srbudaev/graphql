@@ -28,18 +28,19 @@ export const processAuditRatioData = (transactions) => {
     .sort((a, b) => a.month.localeCompare(b.month));
 };
 
-export const processAuditorData = (audits) => {
-  const auditorCounts = {};
+export const processAuditorData = (transactions) => {
+  const auditedCounts = {};
   
-  audits.forEach(audit => {
-    if (audit.grade !== null) {
-      const auditorId = audit.auditorId;
-      auditorCounts[auditorId] = (auditorCounts[auditorId] || 0) + 1;
+  // Process "up" transactions which represent successful audits you performed
+  transactions.forEach(tx => {
+    if (tx.type === 'up') {
+      const projectName = tx.path.split('/').pop().replace(/-/g, ' ');
+      auditedCounts[projectName] = (auditedCounts[projectName] || 0) + 1;
     }
   });
   
-  return Object.entries(auditorCounts)
-    .map(([id, count]) => ({ auditor: `User ${id}`, count }))
+  return Object.entries(auditedCounts)
+    .map(([project, count]) => ({ auditor: project, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 10); // Top 10
 };
