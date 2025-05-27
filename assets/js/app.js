@@ -1,4 +1,7 @@
 // GraphQL Profile App
+import { processAuditRatioData, processAuditorData } from './data.js';
+import { drawAuditRatioChart, drawAuditorChart } from './charts.js';
+
 const API_URL = 'https://01.gritlab.ax/api/graphql-engine/v1/graphql';
 const AUTH_URL = 'https://01.gritlab.ax/api/auth/signin';
 
@@ -6,7 +9,30 @@ const AUTH_URL = 'https://01.gritlab.ax/api/auth/signin';
 const queries = {
   user: `{ user { id login attrs auditRatio campus } }`,
   xp: `{ transaction(where: {type: {_eq: "xp"}} order_by: {createdAt: desc} limit: 50) { amount createdAt path } }`,
-  progress: `{ progress { grade createdAt path object { name type } } result { grade createdAt path object { name type } } }`
+  progress: `{ progress { grade createdAt path object { name type } } result { grade createdAt path object { name type } } }`,
+  auditTransactions: `{ transaction(where: {type: {_in: ["up", "down"]}} order_by: {createdAt: desc}) { id type amount createdAt path userId attrs } }`,
+  audits: `{ audit(order_by: {createdAt: desc}) { id grade createdAt resultId auditorId result } }`
+};
+
+// Load local data as fallback
+const loadLocalData = async () => {
+  try {
+    const auditResponse = await fetch('./audit_queries1.txt');
+    const auditText = await auditResponse.text();
+    const auditData = JSON.parse(auditText);
+    
+    const auditorResponse = await fetch('./audit_quieries2.txt');
+    const auditorText = await auditorResponse.text();
+    const auditorData = JSON.parse(auditorText);
+    
+    return {
+      transactions: auditData.data.transaction,
+      audits: auditorData.data.audit
+    };
+  } catch (err) {
+    console.error('Failed to load local data:', err);
+    return { transactions: [], audits: [] };
+  }
 };
 
 // GraphQL request
@@ -70,17 +96,12 @@ const showProfile = async token => {
       <div class="info-row"><strong>Level:</strong> ${Math.floor(Math.cbrt(totalXP / 1000))}</div>
     `;
     
-    drawXPChart(xpTransactions);
-    
     // Load projects
     const projectData = await gql(queries.progress, token);
     const allProjects = [...(projectData.progress || []), ...(projectData.result || [])];
-    
-    // Only count attempted projects
     const attemptedProjects = allProjects.filter(p => p.grade !== null);
     const completed = attemptedProjects.filter(p => p.grade === 1).length;
     const failed = attemptedProjects.filter(p => p.grade === 0).length;
-    const inProgress = allProjects.filter(p => p.grade === null).length;
     
     document.getElementById('projectStats').innerHTML = `
       <div class="info-row"><strong>Attempted:</strong> ${attemptedProjects.length}</div>
@@ -89,57 +110,30 @@ const showProfile = async token => {
       <div class="info-row"><strong>Success Rate:</strong> ${attemptedProjects.length > 0 ? ((completed / attemptedProjects.length) * 100).toFixed(1) : 0}%</div>
     `;
     
-    drawProjectChart(completed, failed, inProgress);
+    // Load audit data (try API first, fallback to local)
+    let auditTransactions, audits;
+    try {
+      const auditTxData = await gql(queries.auditTransactions, token);
+      const auditData = await gql(queries.audits, token);
+      auditTransactions = auditTxData.transaction;
+      audits = auditData.audit;
+    } catch (err) {
+      console.log('Using local data...');
+      const localData = await loadLocalData();
+      auditTransactions = localData.transactions;
+      audits = localData.audits;
+    }
+    
+    // Process and draw charts
+    const auditRatioData = processAuditRatioData(auditTransactions);
+    const auditorData = processAuditorData(audits);
+    
+    drawAuditRatioChart(auditRatioData, 'auditRatioChart');
+    drawAuditorChart(auditorData, 'auditorChart');
+    
   } catch (err) {
     console.error(err);
   }
-};
-
-// Draw XP chart
-const drawXPChart = transactions => {
-  const svg = document.getElementById('xpChart');
-  const sorted = [...transactions].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  let cumulative = 0;
-  const maxXP = sorted.reduce((sum, tx) => sum + tx.amount, 0);
-  
-  const points = sorted.map((tx, i) => {
-    cumulative += tx.amount;
-    return { x: (i / (sorted.length - 1)) * 100, y: 100 - (cumulative / maxXP) * 100 };
-  });
-  
-  const path = `M ${points.map(p => `${p.x},${p.y}`).join(' L ')}`;
-  svg.innerHTML = `<path d="${path}" fill="none" stroke="#667eea" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('preserveAspectRatio', 'none');
-};
-
-// Draw project chart
-const drawProjectChart = (completed, failed, inProgress) => {
-  const svg = document.getElementById('projectChart');
-  const total = completed + failed + inProgress;
-  let angle = 0;
-  
-  const segments = [
-    { value: completed, color: '#4CAF50' },
-    { value: failed, color: '#F44336' },
-    { value: inProgress, color: '#FF9800' }
-  ];
-  
-  svg.innerHTML = segments.map(seg => {
-    const startAngle = angle;
-    const endAngle = angle + (seg.value / total) * 360;
-    angle = endAngle;
-    
-    const x1 = 50 + 40 * Math.cos(startAngle * Math.PI / 180);
-    const y1 = 50 + 40 * Math.sin(startAngle * Math.PI / 180);
-    const x2 = 50 + 40 * Math.cos(endAngle * Math.PI / 180);
-    const y2 = 50 + 40 * Math.sin(endAngle * Math.PI / 180);
-    const largeArc = endAngle - startAngle > 180 ? 1 : 0;
-    
-    return `<path d="M 50 50 L ${x1} ${y1} A 40 40 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${seg.color}"/>`;
-  }).join('');
-  
-  svg.setAttribute('viewBox', '0 0 100 100');
 };
 
 // Logout

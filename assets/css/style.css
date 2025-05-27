@@ -107,8 +107,31 @@ svg {
     margin-top: 20px;
 }
 
+/* Tooltip styles */
+.tooltip {
+  position: absolute;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  display: none;
+  z-index: 1000;
+  max-width: 200px;
+}
+
+.chart-point {
+  cursor: pointer;
+  transition: r 0.2s;
+}
+
+.chart-point:hover {
+  r: 6;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .grid { grid-template-columns: 1fr; }
     .header { flex-direction: column; gap: 15px; }
-} 
+}
