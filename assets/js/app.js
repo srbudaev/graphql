@@ -1,6 +1,7 @@
 // GraphQL Profile App
 import { processAuditRatioData, processAuditorData } from './data.js';
 import { drawAuditRatioChart, drawAuditorChart } from './charts.js';
+import { drawAuditorChart as drawNewAuditorChart, processProjectAuditData } from './auditor-chart.js';
 
 const API_URL = 'https://01.gritlab.ax/api/graphql-engine/v1/graphql';
 const AUTH_URL = 'https://01.gritlab.ax/api/auth/signin';
@@ -102,11 +103,9 @@ const showProfile = async token => {
     }
     
     // Process and draw charts
-    const auditRatioData = processAuditRatioData(auditTransactions);
-    const auditorData = processAuditorData(auditTransactions);
-    
-    drawAuditRatioChart(auditRatioData, 'auditRatioChart');
-    drawAuditorChart(auditorData, 'auditorChart');
+    drawAuditRatioChart(auditTransactions, 'auditRatioChart');
+    const projectAuditData = processProjectAuditData(auditTransactions);
+    drawNewAuditorChart(projectAuditData, 'auditorChart');
     
   } catch (err) {
     console.error(err);
