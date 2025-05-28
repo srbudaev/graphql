@@ -2,6 +2,14 @@
 audit_queries1.txt
 audit_queries3.txt
 audit_quieries2.txt
+audit_queries_for_ratio.txt
+audit_transactions_data.json
+
+# Documentation and context files  
+*.md
+CONTEXT*.md
+SOLUTION_SUMMARY.md
+plan.md
 
 # macOS
 .DS_Store

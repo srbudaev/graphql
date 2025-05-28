@@ -94,13 +94,23 @@ const showProfile = async token => {
       const auditTxData = await gql(queries.auditTransactions, token);
       auditTransactions = auditTxData.transaction;
     } catch (err) {
-      console.log('Using local data...');
-      // Load audit transactions from local file
-      const auditResponse = await fetch('./audit_queries3.txt');
-      const auditText = await auditResponse.text();
-      const auditData = JSON.parse(auditText);
-      auditTransactions = auditData.data.transaction;
+      console.log('Using API data fallback...');
+      // Load from new precise audit data file
+      try {
+        const auditResponse = await fetch('./audit_transactions_data.json');
+        const auditData = await auditResponse.json();
+        auditTransactions = auditData.data.transaction;
+      } catch (err2) {
+        console.log('Using old local data...');
+        // Fallback to old data
+        const auditResponse = await fetch('./audit_queries3.txt');
+        const auditText = await auditResponse.text();
+        const auditData = JSON.parse(auditText);
+        auditTransactions = auditData.data.transaction;
+      }
     }
+    
+    console.log('Loaded audit transactions:', auditTransactions.length);
     
     // Process and draw charts
     drawAuditRatioChart(auditTransactions, 'auditRatioChart');

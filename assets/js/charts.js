@@ -22,33 +22,53 @@ export const drawAuditRatioChart = (transactions, svgId) => {
   g.setAttribute('transform', `translate(${margin.left},${margin.top})`);
   svg.appendChild(g);
   
-  // Process data: calculate cumulative audit ratio
-  let totalUp = 0, totalDown = 0;
-  const dataPoints = transactions.map(t => {
-    if (t.type === 'up') totalUp += t.amount;
-    else totalDown += t.amount;
-    const ratio = totalDown ? totalUp / totalDown : 0;
-    return {
-      date: new Date(t.createdAt),
-      ratio,
-      type: t.type,
-      path: t.path
-    };
-  }).sort((a, b) => a.date - b.date);
+  // Process data: group by month and calculate audit ratio per month
+  const monthlyData = {};
+  
+  transactions.forEach(t => {
+    const date = new Date(t.createdAt);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    
+    if (!monthlyData[monthKey]) {
+      monthlyData[monthKey] = { up: 0, down: 0, date: new Date(date.getFullYear(), date.getMonth(), 1) };
+    }
+    
+    if (t.type === 'up') {
+      monthlyData[monthKey].up += t.amount;
+    } else {
+      monthlyData[monthKey].down += t.amount;
+    }
+  });
+  
+  // Calculate audit ratio for each month
+  const dataPoints = Object.keys(monthlyData)
+    .map(month => {
+      const data = monthlyData[month];
+      const ratio = data.down > 0 ? data.up / data.down : (data.up > 0 ? 5 : 0); // Cap at 5 if no down votes
+      return {
+        date: data.date,
+        ratio: Math.min(ratio, 5), // Cap maximum at 5
+        up: data.up,
+        down: data.down,
+        month
+      };
+    })
+    .sort((a, b) => a.date - b.date);
   
   if (!dataPoints.length) return;
   
   const dates = dataPoints.map(d => d.date);
   const minDate = Math.min(...dates);
   const maxDate = Math.max(...dates);
-  const maxRatio = Math.max(...dataPoints.map(d => d.ratio), 1.5);
+  const maxRatio = 5; // Fixed Y-axis from 0 to 5
+  
   
   // Scales
   const xScale = date => ((date - minDate) / (maxDate - minDate)) * width;
   const yScale = ratio => height - (ratio / maxRatio) * height;
   
-  // Grid lines
-  for (let i = 0; i <= Math.ceil(maxRatio * 2) / 2; i += 0.5) {
+  // Grid lines (0 to 5)
+  for (let i = 0; i <= 5; i += 0.5) {
     const line = document.createElementNS(svgNS, 'line');
     line.setAttribute('x1', 0);
     line.setAttribute('x2', width);
@@ -64,9 +84,24 @@ export const drawAuditRatioChart = (transactions, svgId) => {
     text.setAttribute('y', yScale(i) + 3);
     text.setAttribute('text-anchor', 'end');
     text.setAttribute('font-size', '12');
+    text.setAttribute('fill', '#666');
     text.textContent = i.toFixed(1);
     g.appendChild(text);
   }
+  
+  // X-axis (months)
+  dataPoints.forEach((d, i) => {
+    if (i % 2 === 0 || dataPoints.length < 10) { // Show every other month or all if few points
+      const text = document.createElementNS(svgNS, 'text');
+      text.setAttribute('x', xScale(d.date));
+      text.setAttribute('y', height + 20);
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('font-size', '10');
+      text.setAttribute('fill', '#666');
+      text.textContent = d.month;
+      g.appendChild(text);
+    }
+  });
   
   // Line path
   const path = document.createElementNS(svgNS, 'path');
@@ -75,9 +110,20 @@ export const drawAuditRatioChart = (transactions, svgId) => {
   ).join(' ');
   path.setAttribute('d', pathData);
   path.setAttribute('stroke', '#4285f4');
-  path.setAttribute('stroke-width', '2');
+  path.setAttribute('stroke-width', '3');
   path.setAttribute('fill', 'none');
   g.appendChild(path);
+  
+  // Title
+  const title = document.createElementNS(svgNS, 'text');
+  title.setAttribute('x', width / 2);
+  title.setAttribute('y', -5);
+  title.setAttribute('text-anchor', 'middle');
+  title.setAttribute('font-size', '14');
+  title.setAttribute('font-weight', 'bold');
+  title.setAttribute('fill', '#333');
+  title.textContent = 'Audit Ratio by Month';
+  g.appendChild(title);
   
   // Tooltip group
   const tooltip = document.createElementNS(svgNS, 'g');
@@ -92,18 +138,20 @@ export const drawAuditRatioChart = (transactions, svgId) => {
   tooltip.appendChild(tooltipText);
   g.appendChild(tooltip);
   
-  // Data points with triangles
+  
+  // Data points with circles for each month
   dataPoints.forEach(d => {
-    const triangle = document.createElementNS(svgNS, 'polygon');
-    const isUp = d.type === 'up';
-    triangle.setAttribute('points', isUp ? '0,8 4,0 8,8' : '0,0 4,8 8,0');
-    triangle.setAttribute('transform', `translate(${xScale(d.date)-4}, ${yScale(d.ratio)-(isUp?8:0)})`);
-    triangle.setAttribute('fill', isUp ? '#22c55e' : '#ef4444');
-    triangle.setAttribute('cursor', 'pointer');
+    const circle = document.createElementNS(svgNS, 'circle');
+    circle.setAttribute('cx', xScale(d.date));
+    circle.setAttribute('cy', yScale(d.ratio));
+    circle.setAttribute('r', '4');
+    circle.setAttribute('fill', d.ratio > 1 ? '#22c55e' : '#ef4444');
+    circle.setAttribute('stroke', 'white');
+    circle.setAttribute('stroke-width', '2');
+    circle.setAttribute('cursor', 'pointer');
     
-    triangle.addEventListener('mouseenter', () => {
-      const project = d.path.split('/').pop().replace(/-/g, ' ');
-      tooltipText.textContent = `${project} ${d.ratio.toFixed(2)} ${isUp ? '↑' : '↓'}`;
+    circle.addEventListener('mouseenter', () => {
+      tooltipText.textContent = `${d.month}: ${d.ratio.toFixed(2)} (↑${Math.round(d.up/1000)}KB / ↓${Math.round(d.down/1000)}KB)`;
       const bbox = tooltipText.getBBox();
       const x = Math.min(xScale(d.date), width - bbox.width - 10);
       const y = yScale(d.ratio) - 20;
@@ -116,11 +164,11 @@ export const drawAuditRatioChart = (transactions, svgId) => {
       tooltip.setAttribute('visibility', 'visible');
     });
     
-    triangle.addEventListener('mouseleave', () => {
+    circle.addEventListener('mouseleave', () => {
       tooltip.setAttribute('visibility', 'hidden');
     });
     
-    g.appendChild(triangle);
+    g.appendChild(circle);
   });
 };
 
