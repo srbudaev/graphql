@@ -1,501 +1,245 @@
 {
   "data": {
-    "audit": [
+    "transaction": [
       {
-        "id": 14858,
-        "grade": 1,
-        "createdAt": "2025-05-26T12:45:16.978008+00:00",
-        "resultId": 122647,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-09-09T10:03:18.406287+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlya"
       },
       {
-        "id": 14788,
-        "grade": null,
-        "createdAt": "2025-05-14T14:07:08.090358+00:00",
-        "resultId": 122646,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-09-16T10:02:30.663731+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlyf"
       },
       {
-        "id": 14754,
-        "grade": 1,
-        "createdAt": "2025-05-08T18:22:28.034587+00:00",
-        "resultId": 121798,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-09-16T10:05:50.216079+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/rectperimeter"
       },
       {
-        "id": 14728,
-        "grade": null,
-        "createdAt": "2025-05-06T13:18:40.381757+00:00",
-        "resultId": 121791,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-09-23T10:01:27.544157+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlyb"
       },
       {
-        "id": 14685,
-        "grade": 1,
-        "createdAt": "2025-05-05T14:16:29.232744+00:00",
-        "resultId": 121794,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-09-23T10:06:57.503558+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/countalpha"
       },
       {
-        "id": 14629,
-        "grade": 1,
-        "createdAt": "2025-04-28T15:24:20.267485+00:00",
-        "resultId": 121787,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-09-30T10:01:16.028932+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlyz"
       },
       {
-        "id": 14537,
-        "grade": null,
-        "createdAt": "2025-04-18T15:17:53.550418+00:00",
-        "resultId": null,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-10-07T10:01:47.975758+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlya"
       },
       {
-        "id": 14521,
-        "grade": 1,
-        "createdAt": "2025-04-16T13:46:41.893318+00:00",
-        "resultId": 120862,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-10-07T10:05:58.5619+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/countalpha"
       },
       {
-        "id": 14482,
-        "grade": 1,
-        "createdAt": "2025-04-10T11:32:31.070413+00:00",
-        "resultId": 120513,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-10-14T10:01:15.607968+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlyz"
       },
       {
-        "id": 14447,
-        "grade": 1,
-        "createdAt": "2025-04-08T08:05:05.056474+00:00",
-        "resultId": 119818,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-10-14T10:06:17.410536+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/printif"
       },
       {
-        "id": 14417,
-        "grade": 1,
-        "createdAt": "2025-04-04T06:45:51.172538+00:00",
-        "resultId": 119807,
-        "auditorId": 2522,
-        "result": null
+        "amount": 150,
+        "createdAt": "2024-10-14T11:12:39.760029+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/lastword"
       },
       {
-        "id": 14365,
-        "grade": 1,
-        "createdAt": "2025-03-31T10:11:59.41266+00:00",
-        "resultId": 119690,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-10-21T10:01:03.400012+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlya"
       },
       {
-        "id": 14343,
-        "grade": 1,
-        "createdAt": "2025-03-30T20:47:10.976131+00:00",
-        "resultId": 119671,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-10-21T10:02:27.816255+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/countcharacter"
       },
       {
-        "id": 14328,
-        "grade": null,
-        "createdAt": "2025-03-29T23:41:42.491574+00:00",
-        "resultId": 119659,
-        "auditorId": 2522,
-        "result": null
+        "amount": 150,
+        "createdAt": "2024-10-21T10:20:50.382353+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/lastword"
       },
       {
-        "id": 14300,
-        "grade": null,
-        "createdAt": "2025-03-28T07:39:10.711228+00:00",
-        "resultId": 119780,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-10-28T11:00:48.683079+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlyf"
       },
       {
-        "id": 14278,
-        "grade": 1,
-        "createdAt": "2025-03-27T08:03:27.011784+00:00",
-        "resultId": 119672,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-10-28T11:02:53.989696+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/rectperimeter"
       },
       {
-        "id": 14257,
-        "grade": 1,
-        "createdAt": "2025-03-24T10:28:27.393851+00:00",
-        "resultId": 119577,
-        "auditorId": 2522,
-        "result": null
+        "amount": 150,
+        "createdAt": "2024-10-28T11:06:59.465665+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/lastword"
       },
       {
-        "id": 14238,
-        "grade": null,
-        "createdAt": "2025-03-22T20:01:27.189678+00:00",
-        "resultId": 119575,
-        "auditorId": 2522,
-        "result": null
+        "amount": 200,
+        "createdAt": "2024-10-28T12:07:19.988433+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/printrevcomb"
       },
       {
-        "id": 14215,
-        "grade": null,
-        "createdAt": "2025-03-21T11:39:54.678505+00:00",
-        "resultId": 119574,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-11-11T11:01:08.928275+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/only1"
       },
       {
-        "id": 14202,
-        "grade": null,
-        "createdAt": "2025-03-20T12:50:35.178053+00:00",
-        "resultId": 119571,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-11-11T11:04:09.142419+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/countcharacter"
       },
       {
-        "id": 14175,
-        "grade": 1,
-        "createdAt": "2025-03-19T11:56:34.96427+00:00",
-        "resultId": 119462,
-        "auditorId": 2522,
-        "result": null
+        "amount": 150,
+        "createdAt": "2024-11-11T11:17:45.098419+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/digitlen"
       },
       {
-        "id": 14148,
-        "grade": 1,
-        "createdAt": "2025-03-17T11:56:57.414746+00:00",
-        "resultId": 119459,
-        "auditorId": 2522,
-        "result": null
+        "amount": 5000,
+        "createdAt": "2024-11-13T16:03:23.959655+00:00",
+        "path": "/gritlab/school-curriculum/go-reloaded"
       },
       {
-        "id": 14116,
-        "grade": 1,
-        "createdAt": "2025-03-14T13:06:51.989123+00:00",
-        "resultId": 119457,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2024-11-25T11:01:15.495942+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/onlyf"
       },
       {
-        "id": 14100,
-        "grade": null,
-        "createdAt": "2025-03-10T13:04:34.820433+00:00",
-        "resultId": 119410,
-        "auditorId": 2522,
-        "result": null
+        "amount": 100,
+        "createdAt": "2024-11-25T11:03:13.579451+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/printifnot"
       },
       {
-        "id": 14080,
-        "grade": 1,
-        "createdAt": "2025-03-09T20:24:22.532131+00:00",
-        "resultId": 119413,
-        "auditorId": 2522,
-        "result": null
+        "amount": 150,
+        "createdAt": "2024-11-25T11:42:27.344304+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/cameltosnakecase"
       },
       {
-        "id": 14047,
-        "grade": null,
-        "createdAt": "2025-03-05T13:07:20.706793+00:00",
-        "resultId": 119308,
-        "auditorId": 2522,
-        "result": null
+        "amount": 200,
+        "createdAt": "2024-11-25T11:52:55.99434+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/weareunique"
       },
       {
-        "id": 13980,
-        "grade": null,
-        "createdAt": "2025-02-21T15:17:51.278187+00:00",
-        "resultId": null,
-        "auditorId": 2522,
-        "result": null
+        "amount": 250,
+        "createdAt": "2024-11-25T12:48:52.021577+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint/hiddenp"
       },
       {
-        "id": 13922,
-        "grade": 1.411764705882353,
-        "createdAt": "2025-02-11T11:26:59.710127+00:00",
-        "resultId": 113135,
-        "auditorId": 2522,
-        "result": null
+        "amount": 6125,
+        "createdAt": "2024-11-26T13:56:40.060563+00:00",
+        "path": "/gritlab/school-curriculum/ascii-art"
       },
       {
-        "id": 13820,
-        "grade": 1.1458333333333333,
-        "createdAt": "2025-02-05T22:43:36.074537+00:00",
-        "resultId": 112234,
-        "auditorId": 2522,
-        "result": null
+        "amount": 9200,
+        "createdAt": "2024-12-19T14:21:59.210127+00:00",
+        "path": "/gritlab/school-curriculum/ascii-art-web"
       },
       {
-        "id": 13724,
-        "grade": 1.1666666666666667,
-        "createdAt": "2025-01-28T16:39:02.253413+00:00",
-        "resultId": 112006,
-        "auditorId": 2522,
-        "result": null
+        "amount": 9200,
+        "createdAt": "2024-12-20T16:52:28.78365+00:00",
+        "path": "/gritlab/school-curriculum/dockerize"
       },
       {
-        "id": 13696,
-        "grade": 1.1666666666666667,
-        "createdAt": "2025-01-27T11:08:37.730689+00:00",
-        "resultId": 112000,
-        "auditorId": 2522,
-        "result": null
+        "amount": 9200,
+        "createdAt": "2024-12-20T18:40:36.24654+00:00",
+        "path": "/gritlab/school-curriculum/stylize"
       },
       {
-        "id": 13647,
-        "grade": 1.2083333333333333,
-        "createdAt": "2025-01-22T15:53:03.382194+00:00",
-        "resultId": 111785,
-        "auditorId": 2522,
-        "result": null
+        "amount": 24500,
+        "createdAt": "2025-01-10T13:43:02.676934+00:00",
+        "path": "/gritlab/school-curriculum/groupie-tracker"
       },
       {
-        "id": 13618,
-        "grade": 1.75,
-        "createdAt": "2025-01-17T16:23:46.894396+00:00",
-        "resultId": 111719,
-        "auditorId": 2522,
-        "result": null
+        "amount": 12250,
+        "createdAt": "2025-01-17T13:15:42.865969+00:00",
+        "path": "/gritlab/school-curriculum/visualizations"
       },
       {
-        "id": 13567,
-        "grade": 1.45,
-        "createdAt": "2025-01-15T12:09:57.766897+00:00",
-        "resultId": 111713,
-        "auditorId": 2522,
-        "result": null
+        "amount": 12250,
+        "createdAt": "2025-01-20T15:36:16.021203+00:00",
+        "path": "/gritlab/school-curriculum/net-cat"
       },
       {
-        "id": 13549,
-        "grade": 1,
-        "createdAt": "2025-01-13T07:55:16.106103+00:00",
-        "resultId": 111650,
-        "auditorId": 2522,
-        "result": null
+        "amount": 34375,
+        "createdAt": "2025-01-31T12:48:17.883167+00:00",
+        "path": "/gritlab/school-curriculum/lem-in"
       },
       {
-        "id": 13523,
-        "grade": null,
-        "createdAt": "2025-01-10T14:45:52.117287+00:00",
-        "resultId": 111495,
-        "auditorId": 2522,
-        "result": null
+        "amount": 76250,
+        "createdAt": "2025-02-27T13:56:41.473381+00:00",
+        "path": "/gritlab/school-curriculum/forum"
       },
       {
-        "id": 13477,
-        "grade": 1.2916666666666667,
-        "createdAt": "2025-01-09T15:45:00.176834+00:00",
-        "resultId": 111497,
-        "auditorId": 2522,
-        "result": null
+        "amount": 70000,
+        "createdAt": "2025-03-05T11:43:37.210285+00:00",
+        "path": "/gritlab/school-curriculum/piscine-js"
       },
       {
-        "id": 13426,
-        "grade": null,
-        "createdAt": "2025-01-08T16:42:39.845619+00:00",
-        "resultId": 111489,
-        "auditorId": 2522,
-        "result": null
+        "amount": 147000,
+        "createdAt": "2025-04-10T13:26:21.543065+00:00",
+        "path": "/gritlab/school-curriculum/make-your-game"
       },
       {
-        "id": 13392,
-        "grade": 1.2380952380952381,
-        "createdAt": "2025-01-07T17:05:59.576788+00:00",
-        "resultId": 111486,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-04-14T11:22:34.516994+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-even-sum"
       },
       {
-        "id": 13292,
-        "grade": 1.3125,
-        "createdAt": "2024-12-23T09:34:06.704591+00:00",
-        "resultId": 111219,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-04-28T10:02:57.682748+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-factorial"
       },
       {
-        "id": 13246,
-        "grade": 1.2380952380952381,
-        "createdAt": "2024-12-20T14:04:58.482768+00:00",
-        "resultId": 111213,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-04-28T10:05:06.4264+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-nested-array-reverser"
       },
       {
-        "id": 13195,
-        "grade": 1.380952380952381,
-        "createdAt": "2024-12-20T10:27:13.741399+00:00",
-        "resultId": 111215,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-05-05T10:08:41.439031+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-perfect-num"
       },
       {
-        "id": 13162,
-        "grade": 1.1428571428571428,
-        "createdAt": "2024-12-19T13:35:02.180914+00:00",
-        "resultId": 111206,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-05-05T11:26:26.817015+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-palindromic-chains"
       },
       {
-        "id": 13131,
-        "grade": 1.875,
-        "createdAt": "2024-12-17T15:42:47.112572+00:00",
-        "resultId": 111201,
-        "auditorId": 2522,
-        "result": null
+        "amount": 103500,
+        "createdAt": "2025-05-09T12:38:50.032738+00:00",
+        "path": "/gritlab/school-curriculum/real-time-forum"
       },
       {
-        "id": 13088,
-        "grade": 1.6666666666666667,
-        "createdAt": "2024-12-16T15:53:16.673356+00:00",
-        "resultId": 111199,
-        "auditorId": 2522,
-        "result": null
+        "amount": 51750,
+        "createdAt": "2025-05-09T15:51:00.613741+00:00",
+        "path": "/gritlab/school-curriculum/typing-in-progress"
       },
       {
-        "id": 13028,
-        "grade": 1.3888888888888888,
-        "createdAt": "2024-12-10T14:38:14.737905+00:00",
-        "resultId": 110916,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-05-12T10:04:46.508845+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-divisor-finder"
       },
       {
-        "id": 12935,
-        "grade": 1.2857142857142858,
-        "createdAt": "2024-12-04T15:46:07.104609+00:00",
-        "resultId": 110657,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-05-12T10:11:02.529878+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-array-chunk-reversal"
       },
       {
-        "id": 12860,
-        "grade": 1.875,
-        "createdAt": "2024-11-29T16:57:48.706516+00:00",
-        "resultId": 110646,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12813,
-        "grade": null,
-        "createdAt": "2024-11-27T16:07:20.170257+00:00",
-        "resultId": 111197,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12766,
-        "grade": null,
-        "createdAt": "2024-11-26T11:46:37.753074+00:00",
-        "resultId": 110637,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12719,
-        "grade": null,
-        "createdAt": "2024-11-25T16:05:04.544244+00:00",
-        "resultId": 110639,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12672,
-        "grade": null,
-        "createdAt": "2024-11-22T09:49:17.226037+00:00",
-        "resultId": 110620,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12634,
-        "grade": null,
-        "createdAt": "2024-11-18T14:42:37.020497+00:00",
-        "resultId": 110340,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12624,
-        "grade": 1.7777777777777777,
-        "createdAt": "2024-11-18T13:20:53.073721+00:00",
-        "resultId": 110335,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12586,
-        "grade": 1,
-        "createdAt": "2024-11-17T14:38:15.476376+00:00",
-        "resultId": 110330,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12564,
-        "grade": 1,
-        "createdAt": "2024-11-14T13:10:59.710023+00:00",
-        "resultId": 110336,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12539,
-        "grade": 1,
-        "createdAt": "2024-11-13T14:22:53.598855+00:00",
-        "resultId": 110337,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12229,
-        "grade": null,
-        "createdAt": "2024-10-15T00:19:09.937027+00:00",
-        "resultId": 109034,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12058,
-        "grade": 1,
-        "createdAt": "2024-09-24T09:37:59.44738+00:00",
-        "resultId": 107677,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12026,
-        "grade": null,
-        "createdAt": "2024-09-19T11:16:58.020923+00:00",
-        "resultId": 107675,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 12020,
-        "grade": null,
-        "createdAt": "2024-09-17T19:23:09.405964+00:00",
-        "resultId": 107010,
-        "auditorId": 2522,
-        "result": null
-      },
-      {
-        "id": 11967,
-        "grade": null,
-        "createdAt": "2024-09-10T07:55:35.043096+00:00",
-        "resultId": 106989,
-        "auditorId": 2522,
-        "result": null
+        "amount": 50,
+        "createdAt": "2025-05-12T11:56:54.514277+00:00",
+        "path": "/gritlab/school-curriculum/checkpoint-js/js-insertion-sort-analyzer"
       }
     ]
   }
