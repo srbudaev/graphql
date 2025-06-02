@@ -32,6 +32,7 @@ const sessionExpired = (message = 'Your session has expired. Please log in again
     localStorage.removeItem('jwt');
     document.getElementById('login-section').style.display = 'block';
     document.getElementById('profile-section').style.display = 'none';
+     document.getElementById('logout-button').style.display = 'none';
     const loginError = document.getElementById('login-error');
     if (loginError) {
         loginError.textContent = message;
