@@ -1,4 +1,3 @@
-// Draws a horizontal bar chart for skills
 export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
     if (!xpProgression?.length) return;
 
@@ -118,8 +117,11 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
         circle.setAttribute("stroke-width", 2);
         circle.style.cursor = "pointer";
 
-        // Extract project name from path
-        const projectName = point.path ? point.path.split('/').pop() || 'Unknown Project' : 'Unknown Project';
+        // Extract project name from object property or path (improved)
+        const projectName = point.object?.name || 
+                          (point.path ? point.path.split('/').pop() : 'Unknown Project');
+        
+        const projectType = point.object?.type || 'exercise';
         const xpGained = i === 0 ? point.amount : point.amount - xpProgression[i-1].amount;
         const date = new Date(point.createdAt).toLocaleDateString();
 
@@ -127,6 +129,7 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
         circle.addEventListener('mouseenter', (e) => {
             tooltip.innerHTML = `
                 <strong>Project:</strong> ${projectName}<br>
+                <strong>Type:</strong> ${projectType}<br>
                 <strong>XP Gained:</strong> ${xpGained.toLocaleString()}<br>
                 <strong>Total XP:</strong> ${point.amount.toLocaleString()}<br>
                 <strong>Date:</strong> ${date}
@@ -203,17 +206,17 @@ export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
     const barMaxWidth = width - padding - 50; // Leave space for labels
 
     // Create tooltip
-    const tooltip = document.createElement('div');
-    tooltip.style.position = 'absolute';
-    tooltip.style.background = 'rgba(0,0,0,0.8)';
-    tooltip.style.color = 'white';
-    tooltip.style.padding = '8px';
-    tooltip.style.borderRadius = '4px';
-    tooltip.style.fontSize = '12px';
-    tooltip.style.pointerEvents = 'none';
-    tooltip.style.display = 'none';
-    tooltip.style.zIndex = '1000';
-    document.body.appendChild(tooltip);
+    // const tooltip = document.createElement('div');
+    // tooltip.style.position = 'absolute';
+    // tooltip.style.background = 'rgba(0,0,0,0.8)';
+    // tooltip.style.color = 'white';
+    // tooltip.style.padding = '8px';
+    // tooltip.style.borderRadius = '4px';
+    // tooltip.style.fontSize = '12px';
+    // tooltip.style.pointerEvents = 'none';
+    // tooltip.style.display = 'none';
+    // tooltip.style.zIndex = '1000';
+    // document.body.appendChild(tooltip);
 
     // Draw title
     const titleElement = document.createElementNS(svgNS, "text");
@@ -263,23 +266,11 @@ export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
         svg.appendChild(valueLabel);
 
         // Add interactivity
-        bar.addEventListener('mouseenter', (e) => {
-            tooltip.innerHTML = `
-                <strong>Skill:</strong> ${skillName}<br>
-                <strong>Level:</strong> ${skill.amount.toFixed(2)}<br>
-                <strong>Progress:</strong> ${((skill.amount / maxLevel) * 100).toFixed(1)}% of max
-            `;
-            tooltip.style.display = 'block';
+        bar.addEventListener('mouseenter', () => {
             bar.setAttribute("opacity", "0.8");
         });
-
-        bar.addEventListener('mousemove', (e) => {
-            tooltip.style.left = (e.pageX + 10) + 'px';
-            tooltip.style.top = (e.pageY - 10) + 'px';
-        });
-
+        
         bar.addEventListener('mouseleave', () => {
-            tooltip.style.display = 'none';
             bar.setAttribute("opacity", "1");
         });
 
@@ -296,10 +287,10 @@ export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
     scrollWrapper.appendChild(svg);
     chartContainer.appendChild(scrollWrapper);
 
-    // Cleanup function
-    return () => {
-        if (tooltip && tooltip.parentNode) {
-            tooltip.parentNode.removeChild(tooltip);
-        }
-    };
+//     // Cleanup function
+//     return () => {
+//         if (tooltip && tooltip.parentNode) {
+//             tooltip.parentNode.removeChild(tooltip);
+//         }
+//     };
 }
