@@ -3,18 +3,18 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
     if (!xpProgression?.length) return;
 
     const svgNS = "http://www.w3.org/2000/svg";
-    const width = 800, height = 400, padding = 80; // Увеличили размеры для лучшей читаемости
+    const width = 800, height = 400, padding = 80; // Increased size for better readability
     const svg = document.createElementNS(svgNS, "svg");
     svg.setAttribute("width", width);
     svg.setAttribute("height", height);
 
-    // Получаем диапазон дат
+    // Get date range
     const dates = xpProgression.map(p => new Date(p.createdAt));
     const minDate = new Date(Math.min(...dates));
     const maxDate = new Date(Math.max(...dates));
     const totalDays = Math.ceil((maxDate - minDate) / (1000 * 60 * 60 * 24)) || 1;
 
-    // Scaling - теперь основан на днях
+    // Scaling - now based on days
     const maxXP = Math.ceil(Math.max(...xpProgression.map(p => p.amount)) / 100000) * 100000 || 100000;
     const xScale = (date) => {
         const daysSinceStart = Math.floor((new Date(date) - minDate) / (1000 * 60 * 60 * 24));
@@ -22,7 +22,7 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
     };
     const yScale = xp => height - padding - (xp / maxXP) * (height - 2 * padding);
 
-    // Создаем tooltip элемент
+    // Create tooltip element
     const tooltip = document.createElement('div');
     tooltip.style.position = 'absolute';
     tooltip.style.background = 'rgba(0,0,0,0.8)';
@@ -71,8 +71,8 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
         svg.appendChild(label);
     }
 
-    // X labels (даты) - показываем каждые ~30 дней или меньше если данных мало
-    const labelStep = Math.max(1, Math.floor(totalDays / 8)); // Максимум 8 меток
+    // X labels (dates) - show every ~30 days or less if there's little data
+    const labelStep = Math.max(1, Math.floor(totalDays / 8)); // Maximum 8 labels
     const sampleDates = [];
     for (let dayOffset = 0; dayOffset <= totalDays; dayOffset += labelStep) {
         const date = new Date(minDate);
@@ -104,7 +104,7 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
     path.setAttribute("stroke-width", 3);
     svg.appendChild(path);
 
-    // Dots с информацией о проектах
+    // Dots with project information
     xpProgression.forEach((point, i) => {
         const circle = document.createElementNS(svgNS, "circle");
         const cx = xScale(point.createdAt);
@@ -118,12 +118,12 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
         circle.setAttribute("stroke-width", 2);
         circle.style.cursor = "pointer";
 
-        // Извлекаем название проекта из пути
+        // Extract project name from path
         const projectName = point.path ? point.path.split('/').pop() || 'Unknown Project' : 'Unknown Project';
         const xpGained = i === 0 ? point.amount : point.amount - xpProgression[i-1].amount;
         const date = new Date(point.createdAt).toLocaleDateString();
 
-        // Добавляем интерактивность
+        // Add interactivity
         circle.addEventListener('mouseenter', (e) => {
             tooltip.innerHTML = `
                 <strong>Project:</strong> ${projectName}<br>
@@ -132,7 +132,7 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
                 <strong>Date:</strong> ${date}
             `;
             tooltip.style.display = 'block';
-            circle.setAttribute("r", 7); // Увеличиваем размер при hover
+            circle.setAttribute("r", 7); // Increase size on hover
         });
 
         circle.addEventListener('mousemove', (e) => {
@@ -142,7 +142,7 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
 
         circle.addEventListener('mouseleave', () => {
             tooltip.style.display = 'none';
-            circle.setAttribute("r", 5); // Возвращаем исходный размер
+            circle.setAttribute("r", 5); // Return to original size
         });
 
         svg.appendChild(circle);
@@ -163,7 +163,7 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
     scrollWrapper.appendChild(svg);
     chartContainer.appendChild(scrollWrapper);
 
-    // Cleanup функция для удаления tooltip при удалении графика
+    // Cleanup function to remove tooltip when removing the chart
     return () => {
         if (tooltip && tooltip.parentNode) {
             tooltip.parentNode.removeChild(tooltip);
