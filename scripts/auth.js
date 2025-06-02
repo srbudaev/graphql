@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isJwtValid(editedJwt)) {
                     document.getElementById('login-section').style.display = 'none';
                     document.getElementById('profile-section').style.display = 'block';
+                     document.getElementById('logout-button').style.display = 'block';
                     fetchAndDisplayUserInfo(editedJwt);
                 } else {
                     sessionExpired('Invalid session. Please log in again.');

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
     if (jwt && isJwtValid(jwt)) {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('profile-section').style.display = 'block';
+         document.getElementById('logout-button').style.display = 'block';
         await fetchAndDisplayUserInfo(jwt);
     } else if (jwt && !isJwtValid(jwt)) {
         sessionExpired();
