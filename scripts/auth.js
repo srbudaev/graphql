@@ -71,6 +71,8 @@ const handleLogout = () => {
     // Hide the profile section and show the login section
     document.getElementById('profile-section').style.display = 'none';
     document.getElementById('login-section').style.display = 'block';
+     document.getElementById('logout-button').style.display = 'none';
+
 
     // Optionally, clear any profile info
 
