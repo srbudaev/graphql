@@ -21,16 +21,20 @@ export const xpQuery = `
 query {
   transaction(
     where: {type: {_eq: "xp"}}
-    order_by: {createdAt: desc}
+    order_by: {createdAt: asc}
     limit: 1000
   ) {
     amount
     createdAt
     path
+    object {
+      name
+      type
+    }
   }
 }
 `;
-
+// Query to get skills transactions
 export const skillsQuery = `
 query {
   user {

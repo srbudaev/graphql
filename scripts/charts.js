@@ -126,17 +126,16 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
         const date = new Date(point.createdAt).toLocaleDateString();
 
         // Add interactivity
-        circle.addEventListener('mouseenter', (e) => {
-            tooltip.innerHTML = `
-                <strong>Project:</strong> ${projectName}<br>
-                <strong>Type:</strong> ${projectType}<br>
-                <strong>XP Gained:</strong> ${xpGained.toLocaleString()}<br>
-                <strong>Total XP:</strong> ${point.amount.toLocaleString()}<br>
-                <strong>Date:</strong> ${date}
-            `;
-            tooltip.style.display = 'block';
-            circle.setAttribute("r", 7); // Increase size on hover
-        });
+       circle.addEventListener('mouseenter', (e) => {
+    tooltip.innerHTML = `
+        <strong>Project:</strong> ${projectName}<br>
+        <strong>XP Gained:</strong> ${xpGained.toLocaleString()}<br>
+        <strong>Total XP:</strong> ${point.amount.toLocaleString()}<br>
+        <strong>Date:</strong> ${date}
+    `;
+    tooltip.style.display = 'block';
+    circle.setAttribute("r", 7); // Increase size on hover
+});
 
         circle.addEventListener('mousemove', (e) => {
             tooltip.style.left = (e.pageX + 10) + 'px';
