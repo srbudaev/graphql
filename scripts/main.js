@@ -93,7 +93,9 @@ async function fetchAndDisplayXP(jwt) {
             cumulative += xp.amount;
             progression.push({
                 amount: cumulative,
-                createdAt: xp.createdAt
+                createdAt: xp.createdAt,
+                 path: xp.path,
+                object: xp.object
             });
         }
         const totalXP = cumulative;

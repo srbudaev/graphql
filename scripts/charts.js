@@ -103,52 +103,59 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
     path.setAttribute("stroke-width", 3);
     svg.appendChild(path);
 
-    // Dots with project information
-    xpProgression.forEach((point, i) => {
-        const circle = document.createElementNS(svgNS, "circle");
-        const cx = xScale(point.createdAt);
-        const cy = yScale(point.amount);
-        
-        circle.setAttribute("cx", cx);
-        circle.setAttribute("cy", cy);
-        circle.setAttribute("r", 5);
-        circle.setAttribute("fill", XPLineColors.Dot);
-        circle.setAttribute("stroke", "white");
-        circle.setAttribute("stroke-width", 2);
-        circle.style.cursor = "pointer";
+// Dots with project information
+xpProgression.forEach((point, i) => {
+    const circle = document.createElementNS(svgNS, "circle");
+    const cx = xScale(point.createdAt);
+    const cy = yScale(point.amount);
+    
+    circle.setAttribute("cx", cx);
+    circle.setAttribute("cy", cy);
+    circle.setAttribute("r", 5);
+    
+    // Extract project name from object property or path (improved)
+    const projectName = point.object?.name || 
+                      (point.path ? point.path.split('/').pop() : 'Unknown Project');
+    
+    // Определяем тип контента и устанавливаем соответствующий цвет
+    const projectType = point.object?.type || 'exercise';
+    const isProject = projectType.toLowerCase() === 'project';
+    const typeLabel = isProject ? 'Project' : 'Exercise';
+    const dotColor = isProject ? XPLineColors.Project : XPLineColors.Exercise;
+    
+    // Устанавливаем цвет точки в зависимости от типа
+    circle.setAttribute("fill", dotColor);
+    circle.setAttribute("stroke", "white");
+    circle.setAttribute("stroke-width", 2);
+    circle.style.cursor = "pointer";
+    
+    const xpGained = i === 0 ? point.amount : point.amount - xpProgression[i-1].amount;
+    const date = new Date(point.createdAt).toLocaleDateString();
 
-        // Extract project name from object property or path (improved)
-        const projectName = point.object?.name || 
-                          (point.path ? point.path.split('/').pop() : 'Unknown Project');
-        
-        const projectType = point.object?.type || 'exercise';
-        const xpGained = i === 0 ? point.amount : point.amount - xpProgression[i-1].amount;
-        const date = new Date(point.createdAt).toLocaleDateString();
-
-        // Add interactivity
-       circle.addEventListener('mouseenter', (e) => {
-    tooltip.innerHTML = `
-        <strong>Project:</strong> ${projectName}<br>
-        <strong>XP Gained:</strong> ${xpGained.toLocaleString()}<br>
-        <strong>Total XP:</strong> ${point.amount.toLocaleString()}<br>
-        <strong>Date:</strong> ${date}
-    `;
-    tooltip.style.display = 'block';
-    circle.setAttribute("r", 7); // Increase size on hover
-});
-
-        circle.addEventListener('mousemove', (e) => {
-            tooltip.style.left = (e.pageX + 10) + 'px';
-            tooltip.style.top = (e.pageY - 10) + 'px';
-        });
-
-        circle.addEventListener('mouseleave', () => {
-            tooltip.style.display = 'none';
-            circle.setAttribute("r", 5); // Return to original size
-        });
-
-        svg.appendChild(circle);
+    // Add interactivity with dynamic type
+    circle.addEventListener('mouseenter', () => {
+        tooltip.innerHTML = `
+            <strong>${typeLabel}:</strong> ${projectName}<br>
+            <strong>XP Gained:</strong> ${xpGained.toLocaleString()}<br>
+            <strong>Total XP:</strong> ${point.amount.toLocaleString()}<br>
+            <strong>Date:</strong> ${date}
+        `;
+        tooltip.style.display = 'block';
+        circle.setAttribute("r", 7); // Increase size on hover
     });
+
+    circle.addEventListener('mousemove', (e) => {
+        tooltip.style.left = (e.pageX + 10) + 'px';
+        tooltip.style.top = (e.pageY - 10) + 'px';
+    });
+
+    circle.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+        circle.setAttribute("r", 5); // Return to original size
+    });
+
+    svg.appendChild(circle);
+});
 
     // Insert SVG into the container with a title
     const chartContainer = document.getElementById("xp-graph");
@@ -176,10 +183,12 @@ export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
 // Draws a line graph for XP progression
 const XPLineColors = {
     Line: "teal",
-    Dot: "teal",
+    Project: "#e74c3c",    // red for project points
+    Exercise: "teal",      // teal for exercise points
     Axis: "black",
     Grid: "#ccc"
 };
+
 
 export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
     if (!skills?.length) return;
@@ -204,18 +213,6 @@ export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
     const maxLevel = Math.max(...skills.map(s => s.amount));
     const barMaxWidth = width - padding - 50; // Leave space for labels
 
-    // Create tooltip
-    // const tooltip = document.createElement('div');
-    // tooltip.style.position = 'absolute';
-    // tooltip.style.background = 'rgba(0,0,0,0.8)';
-    // tooltip.style.color = 'white';
-    // tooltip.style.padding = '8px';
-    // tooltip.style.borderRadius = '4px';
-    // tooltip.style.fontSize = '12px';
-    // tooltip.style.pointerEvents = 'none';
-    // tooltip.style.display = 'none';
-    // tooltip.style.zIndex = '1000';
-    // document.body.appendChild(tooltip);
 
     // Draw title
     const titleElement = document.createElementNS(svgNS, "text");
@@ -285,11 +282,4 @@ export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
     scrollWrapper.className = "chart-scroll-wrapper";
     scrollWrapper.appendChild(svg);
     chartContainer.appendChild(scrollWrapper);
-
-//     // Cleanup function
-//     return () => {
-//         if (tooltip && tooltip.parentNode) {
-//             tooltip.parentNode.removeChild(tooltip);
-//         }
-//     };
 }
