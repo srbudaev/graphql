@@ -179,100 +179,127 @@ const XPLineColors = {
     Grid: "#ccc"
 };
 
-export function drawXPLineGraph(xpProgression, chartTitle = "XP Progression") {
-    if (!xpProgression?.length) return;
+export function drawSkillsBarChart(skills, chartTitle = "Skills Distribution") {
+    if (!skills?.length) return;
 
     const svgNS = "http://www.w3.org/2000/svg";
-    const width = 600, height = 300, padding = 60;
+    const width = 600;
+    const barHeight = 30;
+    const padding = 150; // Увеличили для длинных названий навыков
+    const height = skills.length * (barHeight + 10) + padding;
+    
     const svg = document.createElementNS(svgNS, "svg");
     svg.setAttribute("width", width);
     svg.setAttribute("height", height);
 
-    // Scaling
-    const maxXP = Math.ceil(Math.max(...xpProgression.map(p => p.amount)) / 100000) * 100000 || 100000;
-    const xScale = i => i * (width - 2 * padding) / (xpProgression.length - 1) + padding;
-    const yScale = xp => height - padding - (xp / maxXP) * (height - 2 * padding);
+    // Colors for skills bars
+    const skillColors = [
+        "#3498db", "#e74c3c", "#2ecc71", "#f39c12", "#9b59b6",
+        "#1abc9c", "#34495e", "#e67e22", "#95a5a6", "#c0392b"
+    ];
 
-    // Axes
-    [
-        [padding, padding, padding, height - padding], // Y
-        [padding, height - padding, width - padding, height - padding] // X
-    ].forEach(([x1, y1, x2, y2]) => {
-        const axis = document.createElementNS(svgNS, "line");
-        axis.setAttribute("x1", x1); axis.setAttribute("y1", y1);
-        axis.setAttribute("x2", x2); axis.setAttribute("y2", y2);
-        axis.setAttribute("stroke", XPLineColors.Axis);
-        svg.appendChild(axis);
-    });
+    // Find max skill level for scaling
+    const maxLevel = Math.max(...skills.map(s => s.amount));
+    const barMaxWidth = width - padding - 50; // Leave space for labels
 
-    // Grid lines and Y labels
-    const tickStep = 100000, maxTicks = Math.ceil(maxXP / tickStep);
-    for (let i = 0; i <= maxTicks; i++) {
-        const value = i * tickStep, y = yScale(value);
-        const grid = document.createElementNS(svgNS, "line");
-        grid.setAttribute("x1", padding);
-        grid.setAttribute("y1", y);
-        grid.setAttribute("x2", width - padding);
-        grid.setAttribute("y2", y);
-        grid.setAttribute("stroke", XPLineColors.Grid);
-        grid.setAttribute("stroke-dasharray", "2,2");
-        svg.appendChild(grid);
+    // Create tooltip
+    const tooltip = document.createElement('div');
+    tooltip.style.position = 'absolute';
+    tooltip.style.background = 'rgba(0,0,0,0.8)';
+    tooltip.style.color = 'white';
+    tooltip.style.padding = '8px';
+    tooltip.style.borderRadius = '4px';
+    tooltip.style.fontSize = '12px';
+    tooltip.style.pointerEvents = 'none';
+    tooltip.style.display = 'none';
+    tooltip.style.zIndex = '1000';
+    document.body.appendChild(tooltip);
+
+    // Draw title
+    const titleElement = document.createElementNS(svgNS, "text");
+    titleElement.setAttribute("x", width / 2);
+    titleElement.setAttribute("y", 30);
+    titleElement.setAttribute("text-anchor", "middle");
+    titleElement.setAttribute("font-size", "18");
+    titleElement.setAttribute("font-weight", "bold");
+    titleElement.textContent = chartTitle;
+    svg.appendChild(titleElement);
+
+    // Draw bars and labels
+    skills.forEach((skill, index) => {
+        const y = 60 + index * (barHeight + 10);
+        const barWidth = (skill.amount / maxLevel) * barMaxWidth;
+        
+        // Clean skill name (remove 'skill_' prefix if present)
+        const skillName = skill.type.replace(/^skill_/, '').replace(/_/g, ' ');
+        
+        // Skill label (left side)
         const label = document.createElementNS(svgNS, "text");
         label.setAttribute("x", padding - 10);
-        label.setAttribute("y", y + 4);
+        label.setAttribute("y", y + barHeight / 2 + 5);
         label.setAttribute("text-anchor", "end");
-        label.setAttribute("font-size", "10");
-        label.textContent = value.toLocaleString();
+        label.setAttribute("font-size", "12");
+        label.setAttribute("font-weight", "500");
+        label.textContent = skillName;
         svg.appendChild(label);
-    }
 
-    // X labels
-    const labelStep = Math.ceil(xpProgression.length / 6);
-    for (let i = 0; i < xpProgression.length; i += labelStep) {
-        const x = xScale(i);
-        const date = new Date(xpProgression[i].createdAt);
-        const label = `${date.getMonth() + 1}/${date.getYear()-100}`;
-        const text = document.createElementNS(svgNS, "text");
-        text.setAttribute("x", x);
-        text.setAttribute("y", height - padding + 15);
-        text.setAttribute("text-anchor", "middle");
-        text.setAttribute("font-size", "10");
-        text.textContent = label;
-        svg.appendChild(text);
-    }
+        // Skill bar
+        const bar = document.createElementNS(svgNS, "rect");
+        bar.setAttribute("x", padding);
+        bar.setAttribute("y", y);
+        bar.setAttribute("width", barWidth);
+        bar.setAttribute("height", barHeight);
+        bar.setAttribute("fill", skillColors[index % skillColors.length]);
+        bar.setAttribute("rx", 5); // Rounded corners
+        bar.style.cursor = "pointer";
 
-    // Line path
-    let pathData = `M ${xScale(0)} ${yScale(xpProgression[0].amount)} `;
-    for (let i = 1; i < xpProgression.length; i++) {
-        pathData += `L ${xScale(i)} ${yScale(xpProgression[i].amount)} `;
-    }
-    const path = document.createElementNS(svgNS, "path");
-    path.setAttribute("d", pathData);
-    path.setAttribute("stroke", XPLineColors.Line);
-    path.setAttribute("fill", "none");
-    path.setAttribute("stroke-width", 2);
-    svg.appendChild(path);
+        // Value label (right side of bar)
+        const valueLabel = document.createElementNS(svgNS, "text");
+        valueLabel.setAttribute("x", padding + barWidth + 10);
+        valueLabel.setAttribute("y", y + barHeight / 2 + 5);
+        valueLabel.setAttribute("font-size", "12");
+        valueLabel.setAttribute("font-weight", "bold");
+        valueLabel.textContent = skill.amount.toFixed(0);
+        svg.appendChild(valueLabel);
 
-    // Dots
-    for (let i = 0; i < xpProgression.length; i++) {
-        const circle = document.createElementNS(svgNS, "circle");
-        circle.setAttribute("cx", xScale(i));
-        circle.setAttribute("cy", yScale(xpProgression[i].amount));
-        circle.setAttribute("r", 3);
-        circle.setAttribute("fill", XPLineColors.Dot);
-        svg.appendChild(circle);
-    }
+        // Add interactivity
+        bar.addEventListener('mouseenter', (e) => {
+            tooltip.innerHTML = `
+                <strong>Skill:</strong> ${skillName}<br>
+                <strong>Level:</strong> ${skill.amount.toFixed(2)}<br>
+                <strong>Progress:</strong> ${((skill.amount / maxLevel) * 100).toFixed(1)}% of max
+            `;
+            tooltip.style.display = 'block';
+            bar.setAttribute("opacity", "0.8");
+        });
 
-    // Insert SVG into the container with a title
-    const chartContainer = document.getElementById("xp-graph");
+        bar.addEventListener('mousemove', (e) => {
+            tooltip.style.left = (e.pageX + 10) + 'px';
+            tooltip.style.top = (e.pageY - 10) + 'px';
+        });
+
+        bar.addEventListener('mouseleave', () => {
+            tooltip.style.display = 'none';
+            bar.setAttribute("opacity", "1");
+        });
+
+        svg.appendChild(bar);
+    });
+
+    // Insert into container
+    const chartContainer = document.getElementById("skills-chart");
     if (!chartContainer) return;
     chartContainer.innerHTML = "";
+    
     const scrollWrapper = document.createElement("div");
     scrollWrapper.className = "chart-scroll-wrapper";
-    const titleElement = document.createElement("h3");
-    titleElement.textContent = chartTitle;
-    titleElement.className = "chart-title";
-    scrollWrapper.appendChild(titleElement);
     scrollWrapper.appendChild(svg);
     chartContainer.appendChild(scrollWrapper);
+
+    // Cleanup function
+    return () => {
+        if (tooltip && tooltip.parentNode) {
+            tooltip.parentNode.removeChild(tooltip);
+        }
+    };
 }
